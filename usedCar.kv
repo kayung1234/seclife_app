@@ -1,0 +1,132 @@
+WindowManager:
+    SearchWindow:
+    ResultWindow:
+
+<SearchWindow>:
+    name: "search"
+
+    model: model
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba:[0.15,0.15,0.15,1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        GridLayout:
+            rows: 1
+            size_hint: 1, 0.7
+            pos_hint: {"top": 0.85,"Left":1}
+            Image:
+                source: "icon_temp.png"
+                size_hint_y: None
+                width: 100
+                allow_stretch: True
+                canvas.before:
+                    Color:
+                        rgba:[0.15,0.15,0.15,1]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                
+        GridLayout:
+            rows:1
+            size_hint: 1, 0.05
+            pos_hint: {'top': 0.5,"Left":1}
+            padding: [90,0,90,0]
+            TextInput:
+                id: model
+                hint_text:" Type Your Model Here!"
+                font_size: "14"
+                multiline: False
+                size_hint_y: 0.1
+                background_active: ""
+                background_normal: ""
+                background_color: 1,1,1,0
+                canvas.before:
+                    Color:
+                        rgba:[1,1,1,1]
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: [self.size[0],1]
+                        radius: [3]
+
+        GridLayout:
+            rows:1
+            size_hint: 1, 0.07
+            pos_hint: {'top': 0.15,"Left":1}
+            padding: [80,0,80,0]
+            Button:
+                text: "Search"
+                bold: True
+                color: 0.15,0.15,0.15,1
+                background_normal:""
+                background_color: 1,0.83,0.1,0
+                canvas.before:
+                    Color:
+                        rgba:[1,0.83,0.1,1]
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+                on_release: 
+                    app.root.current = "result"
+                    root.manager.transition.direction = "left"
+                    root.userinput()
+                    root.reset_btn()
+            
+
+        
+            
+
+
+<ResultWindow>:
+    name: "result"
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba:[0.15,0.15,0.15,1]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ScrollView:
+            id: scroll
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: 1, 0.9
+            pos_hint: {'top': 1,"Left":1}
+            GridLayout:
+                id: asimg_grid
+                cols:1
+                size_hint_y: None
+                height: self.minimum_height
+                padding: [50,0,50,15]
+     
+        GridLayout:
+            rows:1
+            size_hint: 1, 0.04
+            pos_hint: {'top': 0.07,"Left":1}
+            padding: [80,0,80,0]
+            Button:
+                text: "Go Back"
+                bold: True
+                color: 0.15,0.15,0.15,1
+                background_normal:""
+                background_color: 1,0.83,0.1,0
+                canvas.before:
+                    Color:
+                        rgba:[1,0.83,0.1,1]
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10]
+                on_release: 
+                    app.root.current = "search"
+                    root.manager.transition.direction = "right"
+                    root.goback_reset()
+                    root.gotop()
+
+
+
